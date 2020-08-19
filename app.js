@@ -3,13 +3,25 @@ class App {
     this.canvas = document.createElement("canvas");
     this.ctx = this.canvas.getContext("2d");
 
-    document.appendChild(this.canvas);
+    document.body.appendChild(this.canvas);
 
     window.addEventListener("resize", this.resize.bind(this), false);
 
     this.resize();
 
+    this.LP = new LP(
+      this.stageWidth / 2,
+      this.stageHeight / 2,
+      100,
+      300,
+      "#0A8BAA",
+      "#0E0F12"
+    );
+
+    // this.LP.draw(this.ctx);
+
     window.requestAnimationFrame(this.animate.bind(this));
+    // window.setInterval(this.animate.bind(this), 100);
   }
 
   resize() {
@@ -25,6 +37,9 @@ class App {
     window.requestAnimationFrame(this.animate.bind(this));
 
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+
+    this.LP.draw(this.ctx);
+    this.LP.rotate(this.ctx);
   }
 }
 
