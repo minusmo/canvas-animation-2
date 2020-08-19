@@ -14,14 +14,13 @@ class App {
       this.stageHeight / 2,
       100,
       300,
-      "#0A8BAA",
+      "#BC2505",
       "#0E0F12"
     );
 
     // this.LP.draw(this.ctx);
 
     window.requestAnimationFrame(this.animate.bind(this));
-    // window.setInterval(this.animate.bind(this), 100);
   }
 
   resize() {
