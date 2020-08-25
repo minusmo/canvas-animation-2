@@ -36,9 +36,9 @@ class App {
     );
 
     this.Tonearm = new Tonearm(
-      this.stageWidth / 2 + 400 - 10,
-      this.stageHeight / 2 - 200 - 10,
-      400
+      this.stageWidth / 2 + 400,
+      this.stageHeight / 2 - 200,
+      300
     );
 
     this.LP = new LP(
@@ -78,7 +78,7 @@ class App {
 
     this.TurnTable.draw(this.ctx2);
 
-    this.Tonearm.draw(this.ctx3);
+    this.Tonearm.drawStraight(this.ctx3);
 
     this.ctx1.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
