@@ -3,6 +3,7 @@ class Tonearm {
     this.x = x;
     this.y = y;
     this.length = length;
+    this.rotate.bind(this);
   }
 
   draw(ctx) {
@@ -63,11 +64,12 @@ class Tonearm {
   }
 
   drawStraight(ctx) {
-    // ctx.shadowColor = "#C6B6B1";
-    // ctx.shadowOffsetY = 0.3;
-    // ctx.shadowOffsetX = 0.3;
-    // ctx.shadowBlur = 1.0;
-    ctx.fillStyle = "#69696B";
+    ctx.shadowColor = "#696969";
+    ctx.shadowOffsetY = 1;
+    ctx.shadowOffsetX = 1;
+    ctx.shadowBlur = 1.0;
+
+    ctx.fillStyle = "#ABABAB";
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
     ctx.rect(this.x - 15, this.y, 30, 500);
@@ -79,7 +81,7 @@ class Tonearm {
     ctx.fill();
 
     ctx.strokeStyle = "#000";
-    ctx.fillStyle = "#69696B";
+    ctx.fillStyle = "#ABABAB";
     ctx.beginPath();
     ctx.arc(this.x, this.y, 40, 0, Math.PI * 2);
     ctx.stroke();
@@ -97,10 +99,17 @@ class Tonearm {
     // ctx.stroke();
     ctx.fill();
 
-    ctx.fillStyle = "#69696B";
+    ctx.fillStyle = "#ABABAB";
     ctx.moveTo(this.x - 20, this.y - 50);
     ctx.beginPath();
     ctx.rect(this.x - 30, this.y - 120, 60, 70);
     ctx.fill();
+  }
+
+  rotate(ctx) {
+    ctx.translate(this.x, this.y);
+    ctx.rotate(Math.PI / 180);
+    ctx.translate(this.x * -1, this.y * -1);
+    console.log("1");
   }
 }

@@ -18,6 +18,13 @@ class App {
     this.canvas3.id = "layer3";
     this.canvas3.style.zIndex = 3;
 
+    //playButton
+
+    this.playButton = document.createElement("button");
+    this.playButton.id = "playButton";
+    this.playButton.textContent = "Play";
+
+    document.body.appendChild(this.playButton);
     document.body.appendChild(this.canvas1);
     document.body.appendChild(this.canvas2);
     document.body.appendChild(this.canvas3);
@@ -51,8 +58,20 @@ class App {
     );
 
     // this.LP.draw(this.ctx);
+    this.playButton.addEventListener("click", (event) => {
+      window.requestAnimationFrame(this.animate.bind(this));
+      event.preventDefault();
+    });
+    this.justDraw.bind(this)();
+    // window.requestAnimationFrame(this.animate.bind(this));
+  }
 
-    window.requestAnimationFrame(this.animate.bind(this));
+  justDraw() {
+    this.TurnTable.draw(this.ctx2);
+
+    this.LP.draw(this.ctx1);
+
+    this.Tonearm.drawStraight(this.ctx3);
   }
 
   resize() {
@@ -76,14 +95,15 @@ class App {
   animate(t) {
     window.requestAnimationFrame(this.animate.bind(this));
 
-    this.TurnTable.draw(this.ctx2);
+    // this.TurnTable.draw(this.ctx2);
 
-    this.Tonearm.drawStraight(this.ctx3);
+    // this.Tonearm.drawStraight(this.ctx3);
 
-    this.ctx1.clearRect(0, 0, this.stageWidth, this.stageHeight);
+    // this.ctx1.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
-    this.LP.draw(this.ctx1);
+    // this.LP.draw(this.ctx1);
     this.LP.rotate(this.ctx1);
+    this.Tonearm.rotate(this.ctx3);
   }
 }
 
