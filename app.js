@@ -22,6 +22,8 @@ class App {
 
     this.playButton = document.createElement("button");
     this.playButton.id = "playButton";
+    this.playButton.style.zIndex = 4;
+    this.playButton.style.position = "fixed";
     this.playButton.textContent = "Play";
 
     document.body.appendChild(this.playButton);
@@ -57,12 +59,24 @@ class App {
       "#0E0F12"
     );
 
-    // this.LP.draw(this.ctx);
+    window.localStorage.setItem("isRotating", "false");
+
     this.playButton.addEventListener("click", (event) => {
-      window.requestAnimationFrame(this.animate.bind(this));
+      if (window.localStorage.getItem("isRotating") === "false") {
+        window.localStorage.setItem(
+          "animationID",
+          String(window.requestAnimationFrame(this.animate.bind(this)))
+        );
+        window.localStorage.setItem("isRotating", "true");
+      } else {
+        window.cancelAnimationFrame(window.localStorage.getItem("animationID"));
+        window.localStorage.setItem("isRotating", "false");
+      }
       event.preventDefault();
     });
-    this.justDraw.bind(this)();
+
+    this.justDraw();
+
     // window.requestAnimationFrame(this.animate.bind(this));
   }
 
@@ -93,16 +107,19 @@ class App {
   }
 
   animate(t) {
-    window.requestAnimationFrame(this.animate.bind(this));
+    const id = window.requestAnimationFrame(this.animate.bind(this));
+    window.localStorage.setItem("animationID", String(id));
 
     // this.TurnTable.draw(this.ctx2);
 
     // this.Tonearm.drawStraight(this.ctx3);
 
-    // this.ctx1.clearRect(0, 0, this.stageWidth, this.stageHeight);
+    this.ctx1.clearRect(0, 0, this.stageWidth, this.stageHeight);
+    this.ctx3.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
-    // this.LP.draw(this.ctx1);
+    this.LP.draw(this.ctx1);
     this.LP.rotate(this.ctx1);
+    this.Tonearm.drawStraight(this.ctx3);
     this.Tonearm.rotate(this.ctx3);
   }
 }

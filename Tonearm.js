@@ -3,7 +3,7 @@ class Tonearm {
     this.x = x;
     this.y = y;
     this.length = length;
-    this.rotate.bind(this);
+    // this.rotate.bind(this);s
   }
 
   draw(ctx) {
