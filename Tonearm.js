@@ -64,22 +64,26 @@ class Tonearm {
   }
 
   drawStraight(ctx) {
+    // set shadowStyles
     ctx.shadowColor = "#696969";
     ctx.shadowOffsetY = 1;
     ctx.shadowOffsetX = 1;
     ctx.shadowBlur = 1.0;
 
+    // draw a bar
     ctx.fillStyle = "#ABABAB";
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
-    ctx.rect(this.x - 15, this.y, 30, 500);
+    ctx.rect(this.x - 15, this.y, 30, this.length);
     ctx.fill();
 
+    // draw a black bar
     ctx.fillStyle = "#000";
     ctx.beginPath();
     ctx.rect(this.x - 10, this.y - 50, 20, 30);
     ctx.fill();
 
+    // draw rotation part(the round one)
     ctx.strokeStyle = "#000";
     ctx.fillStyle = "#ABABAB";
     ctx.beginPath();
@@ -88,7 +92,8 @@ class Tonearm {
 
     ctx.fill();
 
-    ctx.lineWidth = 4;
+    // draw tonearm pin
+    ctx.lineWidth = 0.2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     // ctx.strokeStyle = "#EAECF0";
@@ -96,9 +101,10 @@ class Tonearm {
     ctx.moveTo(this.x + 15, this.y + 495);
     ctx.lineTo(this.x + 60, this.y + 493);
     ctx.lineTo(this.x + 15, this.y + 490);
-    // ctx.stroke();
+    ctx.stroke();
     ctx.fill();
 
+    // draw tonearm head
     ctx.fillStyle = "#ABABAB";
     ctx.moveTo(this.x - 20, this.y - 50);
     ctx.beginPath();
