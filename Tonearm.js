@@ -6,7 +6,7 @@ class Tonearm {
     // this.rotate.bind(this);s
   }
 
-  draw(ctx) {
+  drawCurved(ctx) {
     ctx.shadowColor = "#C6B6B1";
     ctx.shadowOffsetY = 0.3;
     ctx.shadowOffsetX = 0.3;
@@ -106,10 +106,10 @@ class Tonearm {
     ctx.fill();
   }
 
-  rotate(ctx) {
+  rotate(ctx, cw = 1) {
     ctx.translate(this.x, this.y);
-    ctx.rotate(Math.PI / 180);
+    ctx.rotate((cw * Math.PI) / 180);
     ctx.translate(this.x * -1, this.y * -1);
-    console.log("1");
+    console.log(cw);
   }
 }

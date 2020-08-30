@@ -60,17 +60,31 @@ class App {
     );
 
     window.localStorage.setItem("isRotating", "false");
+    window.localStorage.setItem("cw", "true");
 
     this.playButton.addEventListener("click", (event) => {
-      if (window.localStorage.getItem("isRotating") === "false") {
-        window.localStorage.setItem(
-          "animationID",
-          String(window.requestAnimationFrame(this.animate.bind(this)))
+      const isRotating = window.localStorage.getItem("isRotating");
+
+      if (isRotating === "false") {
+        const isCw = Boolean(window.localStorage.getItem("cw"));
+        const cw = isCw ? 1 : -1;
+
+        const animationID = window.requestAnimationFrame(
+          this.animate.bind(this, null, cw)
         );
+        window.localStorage.setItem("animationID", String(animationID));
         window.localStorage.setItem("isRotating", "true");
       } else {
         window.cancelAnimationFrame(window.localStorage.getItem("animationID"));
         window.localStorage.setItem("isRotating", "false");
+
+        const cw = Boolean(window.localStorage.getItem("cw"));
+
+        if (cw === true) {
+          window.localStorage.setItem("cw", "");
+        } else {
+          window.localStorage.setItem("cw", "true");
+        }
       }
       event.preventDefault();
     });
@@ -106,8 +120,8 @@ class App {
     this.ctx3.scale(2, 2);
   }
 
-  animate(t) {
-    const id = window.requestAnimationFrame(this.animate.bind(this));
+  animate(t, cw = 1) {
+    const id = window.requestAnimationFrame(this.animate.bind(this, null, cw));
     window.localStorage.setItem("animationID", String(id));
 
     // this.TurnTable.draw(this.ctx2);
@@ -118,9 +132,9 @@ class App {
     this.ctx3.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
     this.LP.draw(this.ctx1);
-    this.LP.rotate(this.ctx1);
+    // this.LP.rotate(this.ctx1);
     this.Tonearm.drawStraight(this.ctx3);
-    this.Tonearm.rotate(this.ctx3);
+    this.Tonearm.rotate(this.ctx3, cw);
   }
 }
 
